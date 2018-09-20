@@ -28,6 +28,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import org.eclipse.draw2d.geometry.Point;
+
 import de.ovgu.featureide.fm.core.base.IConstraint;
 import de.ovgu.featureide.fm.core.base.IFeature;
 import de.ovgu.featureide.fm.core.base.IFeatureModel;
@@ -192,6 +194,11 @@ public class GraphicalFeatureModel implements IGraphicalFeatureModel {
 		if (graphicalFeature == null) {
 			graphicalFeature = new GraphicalFeature(newFeature, this);
 			features.put(newFeature, graphicalFeature);
+			final IGraphicalFeature parent = graphicalFeature.getSourceConnection().getTarget();
+			if (parent != null) {
+				graphicalFeature.setLocation(new Point(parent.getLocation().x(), parent.getLocation().y() + 30));
+			}
+			failtureMethod();
 		}
 		return graphicalFeature;
 	}
